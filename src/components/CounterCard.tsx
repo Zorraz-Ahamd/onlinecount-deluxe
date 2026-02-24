@@ -40,14 +40,14 @@ export function CounterCard({
   return (
     <Card
       className={cn(
-        "cursor-pointer transition-all duration-200 select-none",
+        "cursor-pointer transition-all duration-300 select-none group border-0",
         isSelected
-          ? "ring-2 ring-primary shadow-lg scale-[1.02]"
-          : "hover:shadow-md"
+          ? "ring-2 ring-primary shadow-xl shadow-primary/10 scale-[1.02] bg-card"
+          : "hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5 bg-card"
       )}
       onClick={onSelect}
     >
-      <CardContent className="p-6 flex flex-col items-center gap-4">
+      <CardContent className="p-8 flex flex-col items-center gap-5">
         {/* Name */}
         <div className="flex items-center gap-2 w-full justify-center min-h-[2rem]">
           {editing ? (
@@ -55,7 +55,7 @@ export function CounterCard({
               ref={inputRef}
               defaultValue={counter.name}
               autoFocus
-              className="text-sm font-medium text-center bg-muted rounded px-2 py-1 outline-none border border-input focus:ring-1 focus:ring-ring w-full max-w-[180px]"
+              className="text-sm font-medium text-center bg-muted rounded-lg px-3 py-1.5 outline-none border border-input focus:ring-2 focus:ring-ring w-full max-w-[180px]"
               onBlur={handleRename}
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleRename();
@@ -65,7 +65,7 @@ export function CounterCard({
             />
           ) : (
             <>
-              <span className="text-sm font-medium text-muted-foreground truncate max-w-[150px]">
+              <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground truncate max-w-[150px]">
                 {counter.name}
               </span>
               <button
@@ -73,7 +73,7 @@ export function CounterCard({
                   e.stopPropagation();
                   setEditing(true);
                 }}
-                className="text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+                className="text-muted-foreground/40 hover:text-primary transition-colors opacity-0 group-hover:opacity-100"
               >
                 <Pencil className="h-3 w-3" />
               </button>
@@ -82,16 +82,16 @@ export function CounterCard({
         </div>
 
         {/* Count Display */}
-        <div className="text-6xl font-bold tabular-nums text-foreground tracking-tight transition-all">
+        <div className="text-7xl font-black tabular-nums text-foreground tracking-tighter transition-all leading-none py-2">
           {counter.value.toLocaleString()}
         </div>
 
         {/* +/- Buttons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <Button
             variant="outline"
             size="icon"
-            className="h-14 w-14 rounded-full text-xl"
+            className="h-16 w-16 rounded-2xl text-xl border-2 hover:border-primary hover:text-primary transition-all"
             onClick={(e) => {
               e.stopPropagation();
               onDecrement();
@@ -101,7 +101,7 @@ export function CounterCard({
           </Button>
           <Button
             size="icon"
-            className="h-14 w-14 rounded-full text-xl"
+            className="h-16 w-16 rounded-2xl text-xl shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all"
             onClick={(e) => {
               e.stopPropagation();
               onIncrement();
@@ -112,11 +112,11 @@ export function CounterCard({
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 mt-1">
+        <div className="flex items-center gap-1 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <Button
             variant="ghost"
             size="sm"
-            className="text-muted-foreground text-xs"
+            className="text-muted-foreground text-xs rounded-lg"
             onClick={(e) => {
               e.stopPropagation();
               onReset();
@@ -127,7 +127,7 @@ export function CounterCard({
           <Button
             variant="ghost"
             size="sm"
-            className="text-destructive text-xs"
+            className="text-destructive text-xs rounded-lg"
             onClick={(e) => {
               e.stopPropagation();
               onDelete();
@@ -139,8 +139,8 @@ export function CounterCard({
 
         {/* Selected hint */}
         {isSelected && (
-          <p className="text-[10px] text-muted-foreground/60">
-            ⌨ Space/↑/→ to add • Backspace/↓/← to subtract
+          <p className="text-[10px] text-muted-foreground/50 font-medium">
+            ⌨ Space/↑/→ to add · Backspace/↓/← to subtract
           </p>
         )}
       </CardContent>
